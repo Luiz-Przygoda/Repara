@@ -12,17 +12,10 @@ interface Cliente {
   endereco?: string;
 }
 
-interface Cliente {
-  id: number;
-  nome: string;
-  telefone?: string;
-  email?: string;
-  endereco?: string;
-}
-
 export default function ClientesPage() {
   const [clientes, setClientes] = useState<Cliente[]>([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const [showForm, setShowForm] = useState(false);
   const [editingCliente, setEditingCliente] = useState<Cliente | null>(null);
   const [formData, setFormData] = useState({
@@ -36,32 +29,13 @@ export default function ClientesPage() {
   const carregarClientes = async () => {
     try {
       setLoading(true);
+      setError(null);
       const response = await api.get("/cliente");
+      console.log('Resposta da API:', response.data);
       setClientes(response.data);
     } catch (error) {
       console.error('Erro ao carregar clientes:', error);
-    } finally {
-      setLoading(false);
-    }
-  };
-  const [loading, setLoading] = useState(true);
-  const [showForm, setShowForm] = useState(false);
-  const [editingCliente, setEditingCliente] = useState<Cliente | null>(null);
-  const [formData, setFormData] = useState({
-    nome: '',
-    telefone: '',
-    email: '',
-    endereco: ''
-  });
-
-  // Carregar clientes
-  const carregarClientes = async () => {
-    try {
-      setLoading(true);
-      const response = await api.get("/cliente");
-      setClientes(response.data);
-    } catch (error) {
-      console.error('Erro ao carregar clientes:', error);
+      setError('Erro ao carregar clientes. Verifique se o backend está rodando.');
     } finally {
       setLoading(false);
     }
@@ -88,6 +62,7 @@ export default function ClientesPage() {
       setFormData({ nome: '', telefone: '', email: '', endereco: '' });
     } catch (error) {
       console.error('Erro ao salvar cliente:', error);
+      setError('Erro ao salvar cliente.');
     }
   };
 
@@ -99,6 +74,7 @@ export default function ClientesPage() {
         await carregarClientes();
       } catch (error) {
         console.error('Erro ao excluir cliente:', error);
+        setError('Erro ao excluir cliente.');
       }
     }
   };
@@ -134,63 +110,12 @@ export default function ClientesPage() {
     );
   }
 
-  // Salvar cliente (criar ou editar)
-  const salvarCliente = async (e: React.FormEvent) => {
-    e.preventDefault();
-    try {
-      if (editingCliente) {
-        await api.put(`/cliente/${editingCliente.id}`, formData);
-      } else {
-        await api.post('/cliente', formData);
-      }
-      
-      // Recarregar lista e fechar formulário
-      await carregarClientes();
-      setShowForm(false);
-      setEditingCliente(null);
-      setFormData({ nome: '', telefone: '', email: '', endereco: '' });
-    } catch (error) {
-      console.error('Erro ao salvar cliente:', error);
-    }
-  };
-
-  // Excluir cliente
-  const excluirCliente = async (id: number) => {
-    if (confirm('Tem certeza que deseja excluir este cliente?')) {
-      try {
-        await api.delete(`/cliente/${id}`);
-        await carregarClientes();
-      } catch (error) {
-        console.error('Erro ao excluir cliente:', error);
-      }
-    }
-  };
-
-  // Editar cliente
-  const editarCliente = (cliente: Cliente) => {
-    setEditingCliente(cliente);
-    setFormData({
-      nome: cliente.nome,
-      telefone: cliente.telefone || '',
-      email: cliente.email || '',
-      endereco: cliente.endereco || ''
-    });
-    setShowForm(true);
-  };
-
-  // Cancelar edição
-  const cancelarEdicao = () => {
-    setShowForm(false);
-    setEditingCliente(null);
-    setFormData({ nome: '', telefone: '', email: '', endereco: '' });
-  };
-
-  if (loading) {
+  if (error) {
     return (
       <main className="min-h-screen bg-slate-50">
         <div className="mx-auto max-w-6xl px-6 py-8">
           <div className="flex items-center justify-center py-12">
-            <div className="text-lg text-slate-600">Carregando clientes...</div>
+            <div className="text-lg text-red-600">{error}</div>
           </div>
         </div>
       </main>
