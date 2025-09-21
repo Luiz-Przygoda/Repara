@@ -4,6 +4,7 @@ import "./globals.css";
 import ClientRoot from "./ClientRoot";
 import Header from "./components/header";
 import Navigation from "./components/Navigation";
+import Navigation from "./components/Navigation";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -30,6 +31,7 @@ export default function RootLayout({
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <ClientRoot>
           <Header />
+          <Navigation />
           <Navigation />
           {children}
         </ClientRoot>
