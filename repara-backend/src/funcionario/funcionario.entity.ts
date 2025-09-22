@@ -12,6 +12,5 @@ export class Funcionario {
   @Column({ nullable: true })
   cargo: string;
 
-  @OneToMany(() => OrdemServico, (ordem) => ordem.funcionario)
-  ordens: OrdemServico[];
+  // Relação com OrdemServico removida temporariamente
 }

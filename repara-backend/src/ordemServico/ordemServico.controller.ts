@@ -11,6 +11,11 @@ export class OrdemServicoController {
     return this.service.findAll();
   }
 
+  @Get('test')
+  test() {
+    return { message: 'Endpoint funcionando', timestamp: new Date() };
+  }
+
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.service.findOne(Number(id));
