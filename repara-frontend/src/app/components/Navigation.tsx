@@ -1,40 +1,40 @@
 "use client";
 
-import Link from "next/link";
-import { usePathname } from "next/navigation";
-import { IconUser, IconCar, IconService, IconCalendar } from "./icons";
+import { useState } from "react";
+import { IconDashboard, IconUsers, IconCar, IconService } from "../components/icons";
 
-const navigation = [
-  { name: 'Dashboard', href: '/', icon: IconCalendar },
-  { name: 'Clientes', href: '/clientes', icon: IconUser },
-  { name: 'Veículos', href: '/veiculos', icon: IconCar },
-  { name: 'Serviços', href: '/servicos', icon: IconService },
-];
+interface NavigationProps {
+  activeTab: string;
+  onTabChange: (tab: string) => void;
+}
 
-export default function Navigation() {
-  const pathname = usePathname();
+export default function Navigation({ activeTab, onTabChange }: NavigationProps) {
+  const menuItems = [
+    { id: 'dashboard', label: 'Dashboard', icon: IconDashboard },
+    { id: 'clientes', label: 'Clientes', icon: IconUsers },
+    { id: 'veiculos', label: 'Veículos', icon: IconCar },
+    { id: 'servicos', label: 'Serviços', icon: IconService },
+  ];
 
   return (
     <nav className="bg-white border-b border-slate-200">
       <div className="mx-auto max-w-6xl px-6">
         <div className="flex space-x-8">
-          {navigation.map((item) => {
-            const isActive = pathname === item.href;
+          {menuItems.map((item) => {
             const Icon = item.icon;
-            
             return (
-              <Link
-                key={item.name}
-                href={item.href}
-                className={`flex items-center gap-2 px-3 py-4 text-sm font-medium border-b-2 transition-colors ${
-                  isActive
-                    ? 'border-[#0e0064] text-[#0e0064]'
+              <button
+                key={item.id}
+                onClick={() => onTabChange(item.id)}
+                className={`flex items-center gap-2 py-4 px-1 border-b-2 font-medium text-sm transition-colors ${
+                  activeTab === item.id
+                    ? 'border-indigo-500 text-indigo-600'
                     : 'border-transparent text-slate-500 hover:text-slate-700 hover:border-slate-300'
                 }`}
               >
-                <Icon className="h-4 w-4" />
-                {item.name}
-              </Link>
+                <Icon />
+                {item.label}
+              </button>
             );
           })}
         </div>

@@ -22,6 +22,5 @@ export class Cliente {
   @OneToMany(() => Veiculo, (veiculo) => veiculo.cliente)
   veiculos: Veiculo[];
 
-  @OneToMany(() => OrdemServico, (ordem) => ordem.cliente)
-  ordens: OrdemServico[];
+  // Relação com OrdemServico removida temporariamente
 }

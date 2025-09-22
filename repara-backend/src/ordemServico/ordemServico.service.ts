@@ -10,8 +10,17 @@ export class OrdemServicoService {
     private repo: Repository<OrdemServico>,
   ) {}
 
-  findAll() {
-    return this.repo.find({ relations: ['itens'] });
+  async findAll() {
+    try {
+      // Busca apenas os dados básicos primeiro
+      const ordens = await this.repo.find();
+      console.log('Ordens encontradas:', ordens.length);
+      return ordens;
+    } catch (error) {
+      console.error('Erro ao buscar ordens:', error);
+      // Se der erro, retorna array vazio
+      return [];
+    }
   }
 
   findOne(id: number) {

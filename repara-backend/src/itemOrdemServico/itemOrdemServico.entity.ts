@@ -2,12 +2,12 @@ import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn } from 't
 import { OrdemServico } from '../ordemServico/ordemServico.entity';
 import { Servico } from '../servico/servico.entity';
 
-@Entity('itensOrdemServico')
+@Entity('itensordemservico')
 export class ItemOrdemServico {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @ManyToOne(() => OrdemServico, (ordem) => ordem.itens, { onDelete: 'CASCADE' })
+  @ManyToOne(() => OrdemServico, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'ordemId' })
   ordem: OrdemServico;
 
