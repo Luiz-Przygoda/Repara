@@ -12,7 +12,7 @@ import { Veiculo } from '../veiculo/veiculo.entity';
 import { Funcionario } from '../funcionario/funcionario.entity';
 import { ItemOrdemServico } from '../itemOrdemServico/itemOrdemServico.entity';
 
-@Entity('ordemServico') 
+@Entity('ordem_servico') 
 export class OrdemServico {
   @PrimaryGeneratedColumn()
   id: number;
@@ -34,7 +34,7 @@ export class OrdemServico {
 
   @Column({
     type: 'enum',
-    enum: ['aberta', 'emAndamento', 'concluida', 'cancelada'],
+    enum: ['aberta', 'em_andamento', 'concluida', 'cancelada'],
     default: 'aberta',
   })
   status: string;
