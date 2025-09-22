@@ -22,7 +22,7 @@ import { OrdemServicoModule } from './ordemServico/ordemServico.module';
       username: 'root',
       password: 'mysql',
       database: 'repara-api',
-      synchronize: true, // cuidado em produção
+      synchronize: true, 
       entities: [Cliente, Veiculo, Servico, Funcionario, OrdemServico, ItemOrdemServico],
     }),
     ClienteModule,
