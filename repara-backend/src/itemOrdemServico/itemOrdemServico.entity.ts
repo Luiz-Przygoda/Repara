@@ -2,17 +2,17 @@ import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn } from 't
 import { OrdemServico } from '../ordemServico/ordemServico.entity';
 import { Servico } from '../servico/servico.entity';
 
-@Entity('itensordemservico')
+@Entity('item_ordem_servico')
 export class ItemOrdemServico {
   @PrimaryGeneratedColumn()
   id: number;
 
   @ManyToOne(() => OrdemServico, { onDelete: 'CASCADE' })
-  @JoinColumn({ name: 'ordemId' })
+  @JoinColumn({ name: 'ordem_id' })
   ordem: OrdemServico;
 
   @ManyToOne(() => Servico, { eager: true, nullable: true })
-  @JoinColumn({ name: 'servicoId' })
+  @JoinColumn({ name: 'servico_id' })
   servico: Servico;
 
   @Column({ nullable: true })

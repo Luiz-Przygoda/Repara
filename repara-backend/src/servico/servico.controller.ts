@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Put, Delete, Body, Param } from '@nestjs/common';
+import { Controller, Get, Post, Put, Delete, Body, Param, HttpException, HttpStatus } from '@nestjs/common';
 import { ServicosService } from './servico.service';
 import { Servico } from './servico.entity';
 
@@ -7,8 +7,15 @@ export class ServicosController {
   constructor(private readonly service: ServicosService) {}
 
   @Get()
-  findAll() {
-    return this.service.findAll();
+  async findAll() {
+    try {
+      return await this.service.findAll();
+    } catch (error) {
+      throw new HttpException(
+        `Erro ao buscar serviços: ${error.message}`,
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
   }
 
   @Get(':id')

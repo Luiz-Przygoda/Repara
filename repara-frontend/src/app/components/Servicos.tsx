@@ -78,7 +78,7 @@ export default function Servicos() {
                 <div className="flex items-center justify-between">
                   <span className="text-sm font-medium text-slate-600">Preço:</span>
                   <span className="text-lg font-bold text-green-600">
-                    R$ {servico.preco?.toFixed(2) || '0,00'}
+                    R$ {Number(servico.preco)?.toFixed(2) || '0,00'}
                   </span>
                 </div>
               </div>

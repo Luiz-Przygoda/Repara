@@ -1,7 +1,7 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, JoinColumn } from 'typeorm';
 import { Cliente } from '../cliente/cliente.entity';
 
-@Entity('veiculos')
+@Entity('veiculo')
 export class Veiculo {
   @PrimaryGeneratedColumn()
   id: number;
@@ -12,12 +12,13 @@ export class Veiculo {
   @Column()
   modelo: string;
 
-  @Column()
-  ano: number;
+  @Column({ type: 'date' })
+  ano: Date;
 
   @Column({ unique: true })
   placa: string;
 
   @ManyToOne(() => Cliente, (cliente) => cliente.veiculos, { onDelete: 'CASCADE' })
-  cliente: Cliente;
+  @JoinColumn({ name: 'cliente_id' })
+  cliente: Cliente; 
 }

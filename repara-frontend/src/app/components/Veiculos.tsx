@@ -24,6 +24,7 @@ export default function Veiculos() {
       try {
         const response = await fetch("http://localhost:3001/veiculos");
         const data = await response.json();
+        console.log(data);
         setVeiculos(Array.isArray(data) ? data : []);
       } catch (error) {
         console.error("Erro ao carregar veículos:", error);
