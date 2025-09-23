@@ -20,7 +20,7 @@ import { OrdemServicoModule } from './ordemServico/ordemServico.module';
       host: 'localhost',
       port: 3306,
       username: 'root',
-      password: 'root',
+      password: 'mysql',
       database: 'repara-api',
       synchronize: false, 
       entities: [Cliente, Veiculo, Servico, Funcionario, OrdemServico, ItemOrdemServico],
