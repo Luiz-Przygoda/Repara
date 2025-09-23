@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { IconCar, IconUser } from "./icons";
+import { IconCar, IconUser } from "../../layout/icons";
 
 interface Veiculo {
   id: number;

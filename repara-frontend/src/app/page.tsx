@@ -1,13 +1,13 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { IconCalendar, IconCar, IconPlus, IconService, IconUser } from "./components/icons";
-import Navigation from "./components/Navigation";
-import Dashboard from "./components/Dashboard";
-import Clientes from "./components/Clientes";
-import Veiculos from "./components/Veiculos";
-import Servicos from "./components/Servicos";
+import { IconCalendar, IconCar, IconPlus, IconService, IconUser } from "./layout/icons";
+import Navigation from "./layout/Navigation";
+import Veiculos from "./components/veiculos/page";
+import Servicos from "./components/serviços/page";
 import OrderSidebar from "./components/OrderSidebar";
+import Clientes from "./components/Clientes";
+import Dashboard from "./components/home/Dashboard";
 
 interface OrdemServico {
   id: number;

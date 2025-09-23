@@ -1,7 +1,7 @@
 "use client";
 
+import { IconMail, IconMapPin, IconPhone, IconUser } from "@/app/layout/icons";
 import { useEffect, useState } from "react";
-import { IconUser, IconPhone, IconMail, IconMapPin } from "./icons";
 
 interface Cliente {
   id: number;

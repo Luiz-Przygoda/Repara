@@ -1,7 +1,7 @@
 "use client";
 
+import { IconService } from "@/app/layout/icons";
 import { useEffect, useState } from "react";
-import { IconService } from "./icons";
 
 interface Servico {
   id: number;

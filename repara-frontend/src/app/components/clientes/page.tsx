@@ -1,8 +1,9 @@
 "use client";
 
+
+import { api } from '@/app/services/api';
 import { useEffect, useState } from 'react';
-import { api } from "../services/api";
-import { IconUser, IconPlus } from "../components/icons";
+import { IconPlus, IconUser } from '../../layout/icons';
 
 interface Cliente {
   id: number;

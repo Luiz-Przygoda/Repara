@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { IconDashboard, IconUsers, IconCar, IconService } from "../components/icons";
+import { IconDashboard, IconUsers, IconCar, IconService } from "./icons";
 
 interface NavigationProps {
   activeTab: string;

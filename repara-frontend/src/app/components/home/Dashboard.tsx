@@ -1,7 +1,7 @@
 "use client";
 
+import { IconCalendar, IconCar, IconService, IconUser } from "@/app/layout/icons";
 import { useEffect, useState } from "react";
-import { IconCalendar, IconCar, IconUser, IconService } from "./icons";
 
 interface DashboardStats {
   totalOrdens: number;

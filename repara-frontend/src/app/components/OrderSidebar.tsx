@@ -1,6 +1,6 @@
 "use client";
 
-import { IconX, IconService, IconFileText, IconUser, IconCar, IconCalendar } from "./icons";
+import { IconX, IconService, IconFileText, IconUser, IconCar, IconCalendar } from "../layout/icons";
 
 interface OrderSidebarProps {
   isOpen: boolean;
