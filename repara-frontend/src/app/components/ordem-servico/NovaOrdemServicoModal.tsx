@@ -80,9 +80,12 @@ export default function NovaOrdemServicoModal({ isOpen, onClose, onSave }: NovaO
     setError(null);
     try {
       await api.post('/ordemServico', {
-        ...formData,
-        status: 'aberta',
-        dataEntrada: new Date().toISOString()
+        clienteId: parseInt(formData.clienteId),
+        veiculoId: parseInt(formData.veiculoId),
+        funcionarioId: parseInt(formData.funcionarioId),
+        servicoIds: formData.servicoIds.map(id => parseInt(id)),
+        observacoes: formData.observacoes,
+        status: 'aberta'
       });
       onSave();
       onClose();
@@ -169,17 +172,14 @@ export default function NovaOrdemServicoModal({ isOpen, onClose, onSave }: NovaO
                   
                   {/* Serviços */}
                   <div>
-                    <label className="block text-sm font-medium text-slate-700 mb-1">Serviços *</label>
+                    <label className="block text-sm font-medium text-slate-700 mb-1">Serviço *</label>
                     <select
                       required
-                      multiple
-                      value={formData.servicoIds}
-                      onChange={(e) => {
-                        const selectedIds = Array.from(e.target.selectedOptions, option => option.value);
-                        setFormData({ ...formData, servicoIds: selectedIds });
-                      }}
-                      className="w-full h-32 rounded-lg border border-slate-300 px-3 py-2 focus:border-indigo-500 focus:outline-none text-slate-900"
+                      value={formData.servicoIds[0] || ''}
+                      onChange={(e) => setFormData({ ...formData, servicoIds: [e.target.value] })}
+                      className="w-full rounded-lg border border-slate-300 px-3 py-2 focus:border-indigo-500 focus:outline-none text-slate-900"
                     >
+                      <option value="">Selecione um serviço</option>
                       {servicos.map(s => <option key={s.id} value={s.id}>{s.descricao}</option>)}
                     </select>
                   </div>
