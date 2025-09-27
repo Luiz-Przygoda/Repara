@@ -7,13 +7,17 @@ import { ItemOrdemServico } from './itemOrdemServico/itemOrdemServico.entity';
 
 export const dbConfig = {
   type: 'mysql' as const,
-  host: '127.0.0.1',
-  port: 3306,
-  username: 'root',
-  password: 'mysql',
-  database: 'repara-api',
+  host: process.env.DB_HOST || 'localhost',
+  port: parseInt(process.env.DB_PORT || '3306'),
+  username: process.env.DB_USERNAME || 'root',
+  password: process.env.DB_PASSWORD || 'root',
+  database: process.env.DB_DATABASE || 'repara-api',
   entities: [Cliente, Veiculo, Servico, Funcionario, OrdemServico, ItemOrdemServico],
   migrations: ['src/migrations/*.js'],
   synchronize: false,
-  logging: true,
+  logging: process.env.NODE_ENV === 'development',
+  // Railway specific configuration
+  ...(process.env.DATABASE_URL && {
+    url: process.env.DATABASE_URL,
+  }),
 };
