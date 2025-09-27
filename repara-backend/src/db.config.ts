@@ -13,6 +13,7 @@ export const dbConfig = {
   password: 'mysql',
   database: 'repara-api',
   entities: [Cliente, Veiculo, Servico, Funcionario, OrdemServico, ItemOrdemServico],
+  migrations: ['src/migrations/*.js'],
   synchronize: false,
   logging: true,
 };

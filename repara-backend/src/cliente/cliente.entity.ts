@@ -4,7 +4,7 @@ import { OrdemServico } from '../ordemServico/ordemServico.entity';
 
 @Entity('cliente')
 export class Cliente {
-    @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn()
   id: number;
 
   @Column({ type: 'varchar', length: 255 })
@@ -22,5 +22,6 @@ export class Cliente {
   @OneToMany(() => Veiculo, (veiculo) => veiculo.cliente)
   veiculos: Veiculo[];
 
-  // Relação com OrdemServico removida temporariamente
+  @OneToMany(() => OrdemServico, (ordem) => ordem.cliente)
+  ordens: OrdemServico[];
 }

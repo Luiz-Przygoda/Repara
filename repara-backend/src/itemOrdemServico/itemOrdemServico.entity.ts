@@ -7,7 +7,7 @@ export class ItemOrdemServico {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @ManyToOne(() => OrdemServico, { onDelete: 'CASCADE' })
+  @ManyToOne(() => OrdemServico, (ordem) => ordem.itens, { onDelete: 'CASCADE' })
   @JoinColumn({ name: 'ordem_id' })
   ordem: OrdemServico;
 
@@ -21,6 +21,6 @@ export class ItemOrdemServico {
   @Column({ default: 1 })
   quantidade: number;
 
-  @Column('decimal', { precision: 10, scale: 2, nullable: true })
+  @Column('decimal', { name: 'valor_unitario', precision: 10, scale: 2, nullable: true })
   valorUnitario: number;
 }

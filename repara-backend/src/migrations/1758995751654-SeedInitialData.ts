@@ -1,6 +1,6 @@
 import { MigrationInterface, QueryRunner } from "typeorm";
 
-export class SeedInitialData1758999999999 implements MigrationInterface {
+export class SeedInitialData1758995751654 implements MigrationInterface {
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.query(`
             INSERT INTO cliente (nome, telefone, email, endereco) VALUES
