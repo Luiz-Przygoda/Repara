@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { IconCalendar, IconCar, IconPlus, IconService, IconUser } from "./layout/icons";
+import { IconPlus } from "./layout/icons";
 import Navigation from "./layout/Navigation";
 import Veiculos from "./components/veiculos/page";
 import Servicos from "./components/serviços/page";

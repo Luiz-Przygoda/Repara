@@ -1,11 +1,17 @@
 "use client";
 
-import { IconX, IconService, IconFileText, IconUser, IconCar, IconCalendar } from "../layout/icons";
+import { IconX, IconService, IconFileText, IconUser, IconCar } from "../layout/icons";
+
+interface Order {
+  id: number;
+  status: string;
+  observacoes?: string;
+}
 
 interface OrderSidebarProps {
   isOpen: boolean;
   onClose: () => void;
-  order: any;
+  order: Order | null;
 }
 
 export default function OrderSidebar({ isOpen, onClose, order }: OrderSidebarProps) {

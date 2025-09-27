@@ -48,9 +48,9 @@ export default function Dashboard() {
         const servicos = await servicosResponse.json();
 
         // Calcular estatísticas das ordens
-        const ordensAbertas = ordens.filter((o: any) => o.status === 'aberta').length;
-        const ordensEmAndamento = ordens.filter((o: any) => o.status === 'em_andamento').length;
-        const ordensConcluidas = ordens.filter((o: any) => o.status === 'concluida').length;
+        const ordensAbertas = ordens.filter((o: { status: string }) => o.status === 'aberta').length;
+        const ordensEmAndamento = ordens.filter((o: { status: string }) => o.status === 'em_andamento').length;
+        const ordensConcluidas = ordens.filter((o: { status: string }) => o.status === 'concluida').length;
 
         setStats({
           totalOrdens: ordens.length,
