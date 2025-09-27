@@ -1,11 +1,6 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Cliente } from './cliente/cliente.entity';
-import { Veiculo } from './veiculo/veiculo.entity';
-import { Servico } from './servico/servico.entity';
-import { Funcionario } from './funcionario/funcionario.entity';
-import { OrdemServico } from './ordemServico/ordemServico.entity';
-import { ItemOrdemServico } from './itemOrdemServico/itemOrdemServico.entity';
+import { dbConfig } from './db.config';
 import { ClienteModule } from './cliente/cliente.module';
 import { VeiculoModule } from './veiculo/veiculo.module';
 import { ServicoModule } from './servico/servico.module';
@@ -15,16 +10,7 @@ import { OrdemServicoModule } from './ordemServico/ordemServico.module';
 
 @Module({
   imports: [
-    TypeOrmModule.forRoot({
-      type: 'mysql',
-      host: 'localhost',
-      port: 3306,
-      username: 'root',
-      password: 'batata123',
-      database: 'repara_api',
-      synchronize: false, 
-      entities: [Cliente, Veiculo, Servico, Funcionario, OrdemServico, ItemOrdemServico],
-    }),
+    TypeOrmModule.forRoot(dbConfig),
     ClienteModule,
     VeiculoModule,
     ServicoModule,
