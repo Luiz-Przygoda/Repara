@@ -2,6 +2,8 @@
 
 import { IconCalendar, IconCar, IconService, IconUser } from "@/app/layout/icons";
 import { useEffect, useState } from "react";
+import { IconPlus } from "@/app/layout/icons";
+import NovaOrdemServicoModal from "../ordem-servico/NovaOrdemServicoModal";
 
 interface DashboardStats {
   totalOrdens: number;
@@ -14,6 +16,7 @@ interface DashboardStats {
 }
 
 export default function Dashboard() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [stats, setStats] = useState<DashboardStats>({
     totalOrdens: 0,
     ordensAbertas: 0,
@@ -77,11 +80,22 @@ export default function Dashboard() {
   }
 
   return (
-    <div className="space-y-6">
-      <div>
-        <h1 className="text-2xl font-bold text-slate-900">Dashboard</h1>
-        <p className="text-slate-600">Visão geral do sistema</p>
-      </div>
+      <div className="space-y-6">
+        
+        {/* Este é o bloco que mudou */}
+        <div className="flex items-center justify-between">
+          <div>
+            <h1 className="text-2xl font-bold text-slate-900">Dashboard</h1>
+            <p className="text-slate-600">Visão geral do sistema</p>
+          </div>
+
+          <button
+            onClick={() => setIsModalOpen(true)}
+            className="flex items-center gap-2 rounded-full cursor-pointer bg-[#0e0064] px-6 py-3 text-base font-semibold text-white shadow-sm hover:bg-indigo-800"
+          >
+            <IconPlus /> Criar OS
+          </button>
+        </div>
 
       {/* Cards de Estatísticas */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -97,6 +111,14 @@ export default function Dashboard() {
             </div>
           </div>
         </div>
+
+<NovaOrdemServicoModal
+  isOpen={isModalOpen}
+  onClose={() => setIsModalOpen(false)}
+  onSave={() => {
+    // reatualizar os stats
+  }}
+/>
 
         {/* Ordens Abertas */}
         <div className="bg-white p-6 rounded-lg shadow-sm border border-slate-200">
@@ -182,3 +204,4 @@ export default function Dashboard() {
     </div>
   );
 }
+
