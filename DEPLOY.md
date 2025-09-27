@@ -1,46 +1,52 @@
 # Guia de Deploy - Repara
 
-Este guia explica como fazer o deploy do projeto Repara usando **Vercel** para o frontend e **Railway** para o backend.
+Este guia explica como fazer o deploy do projeto Repara usando **Vercel** para o frontend e **Render** para o backend (ambos gratuitos).
 
 ## 📋 Pré-requisitos
 
 - Conta no [Vercel](https://vercel.com)
-- Conta no [Railway](https://railway.app)
+- Conta no [Render](https://render.com)
 - Projeto no GitHub (recomendado)
 
-## 🚀 Deploy do Backend (Railway)
+## 🚀 Deploy do Backend (Render)
 
 ### 1. Preparação do Backend
 
 O backend já está configurado com:
-- ✅ `railway.json` - Configuração do Railway
+- ✅ `render.yaml` - Configuração do Render
 - ✅ Variáveis de ambiente configuradas
-- ✅ Suporte a `DATABASE_URL` do Railway
+- ✅ Suporte a PostgreSQL
+- ✅ Suporte a `DATABASE_URL` do Render
 
-### 2. Deploy no Railway
+### 2. Deploy no Render
 
-1. **Acesse [Railway.app](https://railway.app)** e faça login
-2. **Clique em "New Project"**
-3. **Selecione "Deploy from GitHub repo"**
-4. **Escolha seu repositório** e selecione a pasta `repara-backend`
-5. **Configure as variáveis de ambiente:**
-   - `NODE_ENV=production`
-   - `PORT=3001` (opcional, Railway define automaticamente)
+1. **Acesse [Render.com](https://render.com)** e faça login
+2. **Clique em "New +" → "Web Service"**
+3. **Conecte seu repositório GitHub**
+4. **Configure o serviço:**
+   - **Name:** `repara-backend`
+   - **Environment:** `Node`
+   - **Build Command:** `npm install && npm run build`
+   - **Start Command:** `npm run start:prod`
+   - **Plan:** `Free`
 
 ### 3. Configurar Banco de Dados
 
-1. **No dashboard do Railway, clique em "New"**
-2. **Selecione "Database" → "MySQL"**
-3. **Railway criará automaticamente a `DATABASE_URL`**
-4. **Execute as migrations:**
+1. **No dashboard do Render, clique em "New +"**
+2. **Selecione "PostgreSQL"**
+3. **Configure:**
+   - **Name:** `repara-database`
+   - **Plan:** `Free`
+4. **Render criará automaticamente a `DATABASE_URL`**
+5. **Execute as migrations:**
    ```bash
-   # No terminal do Railway ou localmente
+   # No terminal do Render ou localmente
    npm run migration:run
    ```
 
 ### 4. Obter URL do Backend
 
-Após o deploy, anote a URL do seu backend (ex: `https://seu-projeto.railway.app`)
+Após o deploy, anote a URL do seu backend (ex: `https://repara-backend.onrender.com`)
 
 ## 🌐 Deploy do Frontend (Vercel)
 

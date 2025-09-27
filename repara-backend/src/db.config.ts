@@ -16,7 +16,7 @@ export const dbConfig = {
   migrations: ['src/migrations/*.js'],
   synchronize: false,
   logging: process.env.NODE_ENV === 'development',
-  // Railway specific configuration
+  // Render specific configuration
   ...(process.env.DATABASE_URL && {
     url: process.env.DATABASE_URL,
   }),
