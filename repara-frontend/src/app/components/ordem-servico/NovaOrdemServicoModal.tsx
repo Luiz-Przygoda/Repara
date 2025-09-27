@@ -132,7 +132,7 @@ export default function NovaOrdemServicoModal({ isOpen, onClose, onSave }: NovaO
                       required
                       value={formData.clienteId}
                       onChange={(e) => setFormData({ ...formData, clienteId: e.target.value })}
-                      className="w-full rounded-lg border border-slate-300 px-3 py-2 focus:border-indigo-500 focus:outline-none"
+                      className="w-full rounded-lg border border-slate-300 px-3 py-2 focus:border-indigo-500 focus:outline-none text-slate-900"
                     >
                       <option value="">Selecione um cliente</option>
                       {clientes.map(c => <option key={c.id} value={c.id}>{c.nome}</option>)}
@@ -146,7 +146,7 @@ export default function NovaOrdemServicoModal({ isOpen, onClose, onSave }: NovaO
                       required
                       value={formData.veiculoId}
                       onChange={(e) => setFormData({ ...formData, veiculoId: e.target.value })}
-                      className="w-full rounded-lg border border-slate-300 px-3 py-2 focus:border-indigo-500 focus:outline-none"
+                      className="w-full rounded-lg border border-slate-300 px-3 py-2 focus:border-indigo-500 focus:outline-none text-slate-900"
                     >
                       <option value="">Selecione um veículo</option>
                       {veiculos.map(v => <option key={v.id} value={v.id}>{v.modelo} - {v.placa}</option>)}
@@ -160,7 +160,7 @@ export default function NovaOrdemServicoModal({ isOpen, onClose, onSave }: NovaO
                       required
                       value={formData.funcionarioId}
                       onChange={(e) => setFormData({ ...formData, funcionarioId: e.target.value })}
-                      className="w-full rounded-lg border border-slate-300 px-3 py-2 focus:border-indigo-500 focus:outline-none"
+                      className="w-full rounded-lg border border-slate-300 px-3 py-2 focus:border-indigo-500 focus:outline-none text-slate-900"
                     >
                       <option value="">Selecione um funcionário</option>
                       {funcionarios.map(f => <option key={f.id} value={f.id}>{f.nome}</option>)}
@@ -178,7 +178,7 @@ export default function NovaOrdemServicoModal({ isOpen, onClose, onSave }: NovaO
                         const selectedIds = Array.from(e.target.selectedOptions, option => option.value);
                         setFormData({ ...formData, servicoIds: selectedIds });
                       }}
-                      className="w-full h-32 rounded-lg border border-slate-300 px-3 py-2 focus:border-indigo-500 focus:outline-none"
+                      className="w-full h-32 rounded-lg border border-slate-300 px-3 py-2 focus:border-indigo-500 focus:outline-none text-slate-900"
                     >
                       {servicos.map(s => <option key={s.id} value={s.id}>{s.descricao}</option>)}
                     </select>
@@ -191,7 +191,7 @@ export default function NovaOrdemServicoModal({ isOpen, onClose, onSave }: NovaO
                       value={formData.observacoes}
                       onChange={(e) => setFormData({ ...formData, observacoes: e.target.value })}
                       rows={4}
-                      className="w-full rounded-lg border border-slate-300 px-3 py-2 focus:border-indigo-500 focus:outline-none"
+                      className="w-full rounded-lg border border-slate-300 px-3 py-2 focus:border-indigo-500 focus:outline-none text-slate-900"
                       placeholder="Detalhes sobre o serviço, peças necessárias, etc."
                     />
                   </div>
