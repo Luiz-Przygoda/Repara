@@ -27,13 +27,18 @@ export class OrdemServicoService {
 
   async findAll() {
     try {
-      // Busca apenas os dados básicos primeiro
-      const ordens = await this.repo.find();
-      console.log('Ordens encontradas:', ordens.length);
+      const ordens = await this.repo.find({
+        relations: [
+          'cliente',
+          'veiculo',
+          'funcionario',
+          'itens',
+          'itens.servico'
+        ],
+      });
       return ordens;
     } catch (error) {
       console.error('Erro ao buscar ordens:', error);
-      // Se der erro, retorna array vazio
       return [];
     }
   }
