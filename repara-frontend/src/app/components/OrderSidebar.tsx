@@ -4,8 +4,8 @@ import { IconX, IconService, IconFileText, IconUser, IconCar } from "../layout/i
 
 interface Cliente {
   nome: string;
-  telefone: string;
-  email: string;
+  telefone?: string;
+  email?: string;    
 }
 
 interface Veiculo {
