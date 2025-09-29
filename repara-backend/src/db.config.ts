@@ -13,7 +13,7 @@ export const dbConfig = {
   password: process.env.DB_PASSWORD || 'root',
   database: process.env.DB_DATABASE || 'repara-api',
   entities: [Cliente, Veiculo, Servico, Funcionario, OrdemServico, ItemOrdemServico],
-  migrations: ['src/migrations/*.js'],
+  migrations: ['dist/migrations/*.js'],
   synchronize: false,
   logging: process.env.NODE_ENV === 'development',
   // Render specific configuration

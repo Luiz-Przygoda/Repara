@@ -4,6 +4,7 @@ import { IconCalendar, IconCar, IconService, IconUser } from "@/app/layout/icons
 import { useEffect, useState } from "react";
 import { IconPlus } from "@/app/layout/icons";
 import NovaOrdemServicoModal from "../ordem-servico/NovaOrdemServicoModal";
+import { api } from "@/app/services/api";
 
 interface DashboardStats {
   totalOrdens: number;
@@ -31,23 +32,18 @@ export default function Dashboard() {
   useEffect(() => {
     const fetchStats = async () => {
       try {
-        // Buscar dados de ordens de serviço
-        const ordensResponse = await fetch("http://localhost:3001/ordemServico");
-        const ordens = await ordensResponse.json();
+        const ordensResponse = await api.get("/ordemServico");
+        const ordens = await ordensResponse.data();
         
-        // Buscar dados de clientes
-        const clientesResponse = await fetch("http://localhost:3001/cliente");
-        const clientes = await clientesResponse.json();
-        
-        // Buscar dados de veículos
-        const veiculosResponse = await fetch("http://localhost:3001/veiculos");
-        const veiculos = await veiculosResponse.json();
-        
-        // Buscar dados de serviços
-        const servicosResponse = await fetch("http://localhost:3001/servicos");
-        const servicos = await servicosResponse.json();
+        const clientesResponse = await api.get("/cliente");
+        const clientes = await clientesResponse.data();
 
-        // Calcular estatísticas das ordens
+        const veiculosResponse = await api.get("/veiculos");
+        const veiculos = await veiculosResponse.data();
+
+        const servicosResponse = await api.get("/servicos");
+        const servicos = await servicosResponse.data();
+
         const ordensAbertas = ordens.filter((o: { status: string }) => o.status === 'aberta').length;
         const ordensEmAndamento = ordens.filter((o: { status: string }) => o.status === 'em_andamento').length;
         const ordensConcluidas = ordens.filter((o: { status: string }) => o.status === 'concluida').length;

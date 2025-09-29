@@ -8,6 +8,7 @@ import Servicos from "./components/serviços/page";
 import OrderSidebar from "./components/OrderSidebar";
 import Clientes from "./components/Clientes";
 import Dashboard from "./components/home/Dashboard";
+import { api } from "@/app/services/api";
 
 interface OrdemServico {
   id: number;
@@ -54,8 +55,8 @@ export default function Home() {
 
   useEffect(() => {
     if (activeTab === 'dashboard') {
-      fetch("http://localhost:3001/ordemServico") 
-        .then((res) => res.json())
+      api.get("/ordemServico") 
+        .then((res) => res.data)
         .then((data) => {
           console.log("📦 Dados recebidos do backend:", data);
           setOrdens(Array.isArray(data) ? data : []);

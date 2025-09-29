@@ -2,6 +2,7 @@
 
 import { IconMail, IconMapPin, IconPhone, IconUser } from "@/app/layout/icons";
 import { useEffect, useState } from "react";
+import { api } from "@/app/services/api";
 
 interface Cliente {
   id: number;
@@ -15,11 +16,11 @@ export default function Clientes() {
   const [clientes, setClientes] = useState<Cliente[]>([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
+useEffect(() => {
     const fetchClientes = async () => {
       try {
-        const response = await fetch("http://localhost:3001/cliente");
-        const data = await response.json();
+        const response = await api.get(`/cliente`);
+        const data = await response.data;
         setClientes(Array.isArray(data) ? data : []);
       } catch (error) {
         console.error("Erro ao carregar clientes:", error);

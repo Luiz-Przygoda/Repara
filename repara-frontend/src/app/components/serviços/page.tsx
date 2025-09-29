@@ -2,6 +2,7 @@
 
 import { IconService } from "@/app/layout/icons";
 import { useEffect, useState } from "react";
+import { api } from "@/app/services/api";
 
 interface Servico {
   id: number;
@@ -17,8 +18,8 @@ export default function Servicos() {
   useEffect(() => {
     const fetchServicos = async () => {
       try {
-        const response = await fetch("http://localhost:3001/servicos");
-        const data = await response.json();
+        const response = await api.get("/servicos");
+        const data = await response.data;
         setServicos(Array.isArray(data) ? data : []);
       } catch (error) {
         console.error("Erro ao carregar serviços:", error);

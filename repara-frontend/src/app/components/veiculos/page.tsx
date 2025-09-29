@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { IconCar, IconUser } from "../../layout/icons";
+import { api } from "@/app/services/api";
 
 interface Veiculo {
   id: number;
@@ -22,8 +23,8 @@ export default function Veiculos() {
   useEffect(() => {
     const fetchVeiculos = async () => {
       try {
-        const response = await fetch("http://localhost:3001/veiculos");
-        const data = await response.json();
+        const response = await api.get("/veiculos");
+        const data = await response.data;
         console.log(data);
         setVeiculos(Array.isArray(data) ? data : []);
       } catch (error) {
