@@ -10,7 +10,7 @@ interface Cliente {
 
 interface Veiculo {
   modelo: string;
-  placa?: string;
+  placa: string;
 }
 
 interface Funcionario {
@@ -24,12 +24,6 @@ interface Servico {
   valor: number;
 }
 
-interface Item {
-  servico: { nome: string };
-  quantidade: number;
-  valorUnitario: string;
-}
-
 interface Order {
   id: number;
   status: string;
@@ -37,7 +31,7 @@ interface Order {
   cliente?: Cliente;
   veiculo?: Veiculo;
   funcionario?: Funcionario;
-  itens?: Item[];
+  servicos?: Servico[];
 }
 
 interface OrderSidebarProps {
@@ -48,12 +42,6 @@ interface OrderSidebarProps {
 
 export default function OrderSidebar({ isOpen, onClose, order }: OrderSidebarProps) {
   if (!order) return null;
-
-  const servicos: Servico[] = order.itens?.map(item => ({
-    nome: item.servico.nome,
-    quantidade: item.quantidade,
-    valor: parseFloat(item.valorUnitario)
-  })) || [];
 
   return (
     <>
@@ -66,14 +54,19 @@ export default function OrderSidebar({ isOpen, onClose, order }: OrderSidebarPro
       )}
       
       {/* Sidebar */}
-      <div className={`fixed right-0 top-0 h-full w-96 bg-white shadow-xl z-[9999] transform transition-transform duration-300 ${isOpen ? 'translate-x-0' : 'translate-x-full'}`}>
+      <div className={`fixed right-0 top-0 h-full w-96 bg-white shadow-xl z-[9999] transform transition-transform duration-300 ${
+        isOpen ? 'translate-x-0' : 'translate-x-full'
+      }`}>
         <div className="flex flex-col h-full">
           {/* Header */}
           <div className="flex items-center justify-between p-6 border-b border-slate-200">
             <h2 className="text-lg font-semibold text-slate-900">
               OR-{String(order.id).padStart(3, '0')}
             </h2>
-            <button onClick={onClose} className="p-2 hover:bg-slate-100 rounded-full transition-colors">
+            <button
+              onClick={onClose}
+              className="p-2 hover:bg-slate-100 rounded-full transition-colors"
+            >
               <IconX />
             </button>
           </div>
@@ -113,7 +106,9 @@ export default function OrderSidebar({ isOpen, onClose, order }: OrderSidebarPro
                 Veículo
               </div>
               <div className="pl-6 space-y-1">
-                <p className="font-semibold text-slate-900">{order.veiculo?.modelo || "-"}</p>
+                <p className="font-semibold text-slate-900">
+                  {order.veiculo?.modelo || "-"}
+                </p>
                 <p className="text-sm text-slate-600">Placa: {order.veiculo?.placa || "-"}</p>
               </div>
             </div>
@@ -137,12 +132,16 @@ export default function OrderSidebar({ isOpen, onClose, order }: OrderSidebarPro
                 Serviços
               </div>
               <div className="pl-6 space-y-2">
-                {servicos.length > 0 ? (
-                  servicos.map((servico, idx) => (
+                {order.servicos && order.servicos.length > 0 ? (
+                  order.servicos.map((servico, idx) => (
                     <div key={idx} className="bg-slate-50 p-3 rounded-lg">
-                      <p className="font-medium text-slate-900">{servico.nome}</p>
+                      <p className="font-medium text-slate-900">
+                        {servico.nome}
+                      </p>
                       <p className="text-sm text-slate-600">Quantidade: {servico.quantidade}</p>
-                      <p className="text-sm text-slate-600">Valor: R$ {servico.valor.toFixed(2)}</p>
+                      <p className="text-sm text-slate-600">
+                        Valor: R$ {servico.valor.toFixed(2)}
+                      </p>
                     </div>
                   ))
                 ) : (
