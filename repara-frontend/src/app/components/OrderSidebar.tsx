@@ -18,26 +18,42 @@ interface Funcionario {
   cargo?: string;
 }
 
+interface Servico {
+  nome: string;
+  quantidade: number;
+  valor: number;
+}
+
+interface Item {
+  servico: { nome: string };
+  quantidade: number;
+  valorUnitario: string;
+}
+
+interface Order {
+  id: number;
+  status: string;
+  observacoes?: string;
+  cliente?: Cliente;
+  veiculo?: Veiculo;
+  funcionario?: Funcionario;
+  itens?: Item[];
+}
+
 interface OrderSidebarProps {
   isOpen: boolean;
   onClose: () => void;
-  order: {
-    id: number;
-    status: string;
-    observacoes?: string;
-    cliente?: Cliente;
-    veiculo?: Veiculo;
-    funcionario?: Funcionario;
-    itens?: {
-      servico?: { nome?: string };
-      quantidade?: number;
-      valorUnitario?: number;
-    }[];
-  } | null;
+  order: Order | null;
 }
 
 export default function OrderSidebar({ isOpen, onClose, order }: OrderSidebarProps) {
   if (!order) return null;
+
+  const servicos: Servico[] = order.itens?.map(item => ({
+    nome: item.servico.nome,
+    quantidade: item.quantidade,
+    valor: parseFloat(item.valorUnitario)
+  })) || [];
 
   return (
     <>
@@ -48,7 +64,7 @@ export default function OrderSidebar({ isOpen, onClose, order }: OrderSidebarPro
           onClick={onClose}
         />
       )}
-
+      
       {/* Sidebar */}
       <div className={`fixed right-0 top-0 h-full w-96 bg-white shadow-xl z-[9999] transform transition-transform duration-300 ${isOpen ? 'translate-x-0' : 'translate-x-full'}`}>
         <div className="flex flex-col h-full">
@@ -80,7 +96,8 @@ export default function OrderSidebar({ isOpen, onClose, order }: OrderSidebarPro
             {/* Cliente */}
             <div className="space-y-2">
               <div className="flex items-center gap-2 text-sm font-medium text-slate-600">
-                <IconUser /> Cliente
+                <IconUser />
+                Cliente
               </div>
               <div className="pl-6 space-y-1">
                 <p className="font-semibold text-slate-900">{order.cliente?.nome || "-"}</p>
@@ -92,7 +109,8 @@ export default function OrderSidebar({ isOpen, onClose, order }: OrderSidebarPro
             {/* Veículo */}
             <div className="space-y-2">
               <div className="flex items-center gap-2 text-sm font-medium text-slate-600">
-                <IconCar /> Veículo
+                <IconCar />
+                Veículo
               </div>
               <div className="pl-6 space-y-1">
                 <p className="font-semibold text-slate-900">{order.veiculo?.modelo || "-"}</p>
@@ -103,7 +121,8 @@ export default function OrderSidebar({ isOpen, onClose, order }: OrderSidebarPro
             {/* Funcionário */}
             <div className="space-y-2">
               <div className="flex items-center gap-2 text-sm font-medium text-slate-600">
-                <IconUser /> Funcionário Responsável
+                <IconUser />
+                Funcionário Responsável
               </div>
               <div className="pl-6 space-y-1">
                 <p className="font-semibold text-slate-900">{order.funcionario?.nome || "-"}</p>
@@ -114,16 +133,19 @@ export default function OrderSidebar({ isOpen, onClose, order }: OrderSidebarPro
             {/* Serviços */}
             <div className="space-y-2">
               <div className="flex items-center gap-2 text-sm font-medium text-slate-600">
-                <IconService /> Serviços
+                <IconService />
+                Serviços
               </div>
               <div className="pl-6 space-y-2">
-                {order.itens?.length ? order.itens.map((item, idx) => (
-                  <div key={idx} className="bg-slate-50 p-3 rounded-lg">
-                    <p className="font-medium text-slate-900">{item.servico?.nome || "Serviço sem nome"}</p>
-                    <p className="text-sm text-slate-600">Quantidade: {item.quantidade ?? 0}</p>
-                    <p className="text-sm text-slate-600">Valor: R$ {(item.valorUnitario ?? 0).toFixed(2)}</p>
-                  </div>
-                )) : (
+                {servicos.length > 0 ? (
+                  servicos.map((servico, idx) => (
+                    <div key={idx} className="bg-slate-50 p-3 rounded-lg">
+                      <p className="font-medium text-slate-900">{servico.nome}</p>
+                      <p className="text-sm text-slate-600">Quantidade: {servico.quantidade}</p>
+                      <p className="text-sm text-slate-600">Valor: R$ {servico.valor.toFixed(2)}</p>
+                    </div>
+                  ))
+                ) : (
                   <p className="text-sm text-slate-600">Nenhum serviço registrado</p>
                 )}
               </div>
@@ -132,7 +154,8 @@ export default function OrderSidebar({ isOpen, onClose, order }: OrderSidebarPro
             {/* Observações */}
             <div className="space-y-2">
               <div className="flex items-center gap-2 text-sm font-medium text-slate-600">
-                <IconFileText /> Observações
+                <IconFileText />
+                Observações
               </div>
               <div className="pl-6">
                 <p className="text-sm text-slate-700 bg-slate-50 p-3 rounded-lg">
