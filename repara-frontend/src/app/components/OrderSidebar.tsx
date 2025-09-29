@@ -2,10 +2,36 @@
 
 import { IconX, IconService, IconFileText, IconUser, IconCar } from "../layout/icons";
 
+interface Cliente {
+  nome: string;
+  telefone: string;
+  email: string;
+}
+
+interface Veiculo {
+  modelo: string;
+  placa: string;
+}
+
+interface Funcionario {
+  nome: string;
+  cargo: string;
+}
+
+interface Servico {
+  nome: string;
+  quantidade: number;
+  valor: number;
+}
+
 interface Order {
   id: number;
   status: string;
   observacoes?: string;
+  cliente?: Cliente;
+  veiculo?: Veiculo;
+  funcionario?: Funcionario;
+  servicos?: Servico[];
 }
 
 interface OrderSidebarProps {
@@ -67,9 +93,9 @@ export default function OrderSidebar({ isOpen, onClose, order }: OrderSidebarPro
                 Cliente
               </div>
               <div className="pl-6 space-y-1">
-                <p className="font-semibold text-slate-900">João Silva</p>
-                <p className="text-sm text-slate-600">Tel: (11) 99999-9999</p>
-                <p className="text-sm text-slate-600">Email: joao@email.com</p>
+                <p className="font-semibold text-slate-900">{order.cliente?.nome || "-"}</p>
+                <p className="text-sm text-slate-600">Tel: {order.cliente?.telefone || "-"}</p>
+                <p className="text-sm text-slate-600">Email: {order.cliente?.email || "-"}</p>
               </div>
             </div>
 
@@ -81,9 +107,9 @@ export default function OrderSidebar({ isOpen, onClose, order }: OrderSidebarPro
               </div>
               <div className="pl-6 space-y-1">
                 <p className="font-semibold text-slate-900">
-                  Toyota Corolla 2020
+                  {order.veiculo?.modelo || "-"}
                 </p>
-                <p className="text-sm text-slate-600">Placa: ABC-1234</p>
+                <p className="text-sm text-slate-600">Placa: {order.veiculo?.placa || "-"}</p>
               </div>
             </div>
 
@@ -94,8 +120,8 @@ export default function OrderSidebar({ isOpen, onClose, order }: OrderSidebarPro
                 Funcionário Responsável
               </div>
               <div className="pl-6 space-y-1">
-                <p className="font-semibold text-slate-900">Carlos Mecânico</p>
-                <p className="text-sm text-slate-600">Mecânico Sênior</p>
+                <p className="font-semibold text-slate-900">{order.funcionario?.nome || "-"}</p>
+                <p className="text-sm text-slate-600">{order.funcionario?.cargo || "-"}</p>
               </div>
             </div>
 
@@ -106,24 +132,21 @@ export default function OrderSidebar({ isOpen, onClose, order }: OrderSidebarPro
                 Serviços
               </div>
               <div className="pl-6 space-y-2">
-                <div className="bg-slate-50 p-3 rounded-lg">
-                  <p className="font-medium text-slate-900">
-                    Revisão Completa
-                  </p>
-                  <p className="text-sm text-slate-600">Quantidade: 1</p>
-                  <p className="text-sm text-slate-600">
-                    Valor: R$ 150,00
-                  </p>
-                </div>
-                <div className="bg-slate-50 p-3 rounded-lg">
-                  <p className="font-medium text-slate-900">
-                    Troca de Óleo
-                  </p>
-                  <p className="text-sm text-slate-600">Quantidade: 1</p>
-                  <p className="text-sm text-slate-600">
-                    Valor: R$ 80,00
-                  </p>
-                </div>
+                {order.servicos && order.servicos.length > 0 ? (
+                  order.servicos.map((servico, idx) => (
+                    <div key={idx} className="bg-slate-50 p-3 rounded-lg">
+                      <p className="font-medium text-slate-900">
+                        {servico.nome}
+                      </p>
+                      <p className="text-sm text-slate-600">Quantidade: {servico.quantidade}</p>
+                      <p className="text-sm text-slate-600">
+                        Valor: R$ {servico.valor.toFixed(2)}
+                      </p>
+                    </div>
+                  ))
+                ) : (
+                  <p className="text-sm text-slate-600">Nenhum serviço registrado</p>
+                )}
               </div>
             </div>
 
