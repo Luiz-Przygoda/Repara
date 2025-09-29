@@ -2,78 +2,53 @@
 
 import { IconX, IconService, IconFileText, IconUser, IconCar } from "../layout/icons";
 
-interface Cliente {
-  nome: string;
-  telefone?: string;
-  email?: string;    
-}
-
-interface Veiculo {
-  modelo: string;
-  placa?: string;
-}
-
-interface Funcionario {
-  nome: string;
-  cargo?: string;
-}
-
-interface Servico {
-  nome: string;
-  quantidade: number;
-  valor: number;
-}
-
-interface Item {
-  servico: { nome: string };
-  quantidade: number;
-  valorUnitario: string;
-}
-
-interface Order {
-  id: number;
-  status: string;
-  observacoes?: string;
-  cliente?: Cliente;
-  veiculo?: Veiculo;
-  funcionario?: Funcionario;
-  itens?: Item[];
-}
-
 interface OrderSidebarProps {
   isOpen: boolean;
   onClose: () => void;
-  order: Order | null;
+  order: {
+    id: number;
+    status: string;
+    observacoes?: string;
+    cliente?: { nome: string; telefone?: string; email?: string };
+    veiculo?: { modelo: string; placa?: string };
+    funcionario?: { nome: string; cargo?: string };
+    itens?: {
+      servico?: { nome?: string };
+      quantidade?: number;
+      valorUnitario?: string;
+    }[];
+  } | null;
 }
 
 export default function OrderSidebar({ isOpen, onClose, order }: OrderSidebarProps) {
   if (!order) return null;
 
-  const servicos: Servico[] = order.itens?.map(item => ({
-  nome: item.servico?.nome || "Serviço sem nome",
-  quantidade: item.quantidade || 0,
-  valor: parseFloat(item.valorUnitario || "0")
-})) || [];
-
   return (
     <>
       {/* Overlay */}
       {isOpen && (
-        <div 
+        <div
           className="fixed inset-0 bg-white/30 backdrop-blur-sm z-[9998]"
           onClick={onClose}
         />
       )}
-      
+
       {/* Sidebar */}
-      <div className={`fixed right-0 top-0 h-full w-96 bg-white shadow-xl z-[9999] transform transition-transform duration-300 ${isOpen ? 'translate-x-0' : 'translate-x-full'}`}>
+      <div
+        className={`fixed right-0 top-0 h-full w-96 bg-white shadow-xl z-[9999] transform transition-transform duration-300 ${
+          isOpen ? "translate-x-0" : "translate-x-full"
+        }`}
+      >
         <div className="flex flex-col h-full">
           {/* Header */}
           <div className="flex items-center justify-between p-6 border-b border-slate-200">
             <h2 className="text-lg font-semibold text-slate-900">
-              OR-{String(order.id).padStart(3, '0')}
+              OR-{String(order.id).padStart(3, "0")}
             </h2>
-            <button onClick={onClose} className="p-2 hover:bg-slate-100 rounded-full transition-colors">
+            <button
+              onClick={onClose}
+              className="p-2 hover:bg-slate-100 rounded-full transition-colors"
+            >
               <IconX />
             </button>
           </div>
@@ -83,13 +58,18 @@ export default function OrderSidebar({ isOpen, onClose, order }: OrderSidebarPro
             {/* Status */}
             <div className="flex items-center gap-3">
               <span className="text-sm font-medium text-slate-600">Status:</span>
-              <span className={`px-3 py-1 rounded-full text-sm font-semibold ${
-                order.status === 'aberta' ? 'bg-yellow-100 text-yellow-800' :
-                order.status === 'em_andamento' ? 'bg-blue-100 text-blue-800' :
-                order.status === 'concluida' ? 'bg-green-100 text-green-800' :
-                'bg-red-100 text-red-800'
-              }`}>
-                {order.status?.replace('_', ' ').toUpperCase()}
+              <span
+                className={`px-3 py-1 rounded-full text-sm font-semibold ${
+                  order.status === "aberta"
+                    ? "bg-yellow-100 text-yellow-800"
+                    : order.status === "em_andamento"
+                    ? "bg-blue-100 text-blue-800"
+                    : order.status === "concluida"
+                    ? "bg-green-100 text-green-800"
+                    : "bg-red-100 text-red-800"
+                }`}
+              >
+                {order.status?.replace("_", " ").toUpperCase()}
               </span>
             </div>
 
@@ -137,12 +117,18 @@ export default function OrderSidebar({ isOpen, onClose, order }: OrderSidebarPro
                 Serviços
               </div>
               <div className="pl-6 space-y-2">
-                {servicos.length > 0 ? (
-                  servicos.map((servico, idx) => (
+                {order.itens && order.itens.length > 0 ? (
+                  order.itens.map((item, idx) => (
                     <div key={idx} className="bg-slate-50 p-3 rounded-lg">
-                      <p className="font-medium text-slate-900">{servico.nome}</p>
-                      <p className="text-sm text-slate-600">Quantidade: {servico.quantidade}</p>
-                      <p className="text-sm text-slate-600">Valor: R$ {servico.valor.toFixed(2)}</p>
+                      <p className="font-medium text-slate-900">
+                        {item.servico?.nome || "Serviço sem nome"}
+                      </p>
+                      <p className="text-sm text-slate-600">
+                        Quantidade: {item.quantidade || 0}
+                      </p>
+                      <p className="text-sm text-slate-600">
+                        Valor: R$ {parseFloat(item.valorUnitario || "0").toFixed(2)}
+                      </p>
                     </div>
                   ))
                 ) : (
