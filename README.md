@@ -2,6 +2,7 @@
 
 O **Repara** é um sistema web para gerenciamento de ordens de serviço para mecânicas, desenvolvido com foco em simplicidade, escalabilidade e boas práticas.  
 
+## ➡️ [Acesse aqui o Projeto](https://repara-ten.vercel.app/)
 ---
 
 ## 🚀 Tecnologias Utilizadas
@@ -42,8 +43,8 @@ npm run dev
 ```
 
 ## 📌 Funcionalidades
-✅ Cadastro de clientes
-✅ Cadastro e gerenciamento de ordens de serviço
+✅ Cadastro de clientes\
+✅ Cadastro e gerenciamento de ordens de serviço\
 ✅ Integração com banco de dados MySQL
 
 ## 👥 Autores
