@@ -17,8 +17,8 @@ O **Repara** é um sistema web para gerenciamento de ordens de serviço para mec
 
 ### Infraestrutura
 - Deploy com [Vercel](https://vercel.com/) (Frontend)
-- Deploy com [Render](https://render.com/)
-
+- Deploy com [Render](https://render.com/) (Backend)
+- Hospeda o banco de dados MySQL [Railway](https://railway.com/)
 ---
 
 ## ⚙️ Como Rodar o Projeto Localmente
@@ -47,9 +47,9 @@ npm run dev
 ✅ Integração com banco de dados MySQL
 
 ## 👥 Autores
-Alcides Antonio
-Luan Felipe
-Luiz Gustavo
+Alcides Antonio Lorenski Neto\
+Luan Felipe Tenroller\
+Luiz Gustavo Przygoda\
 Nathaly Nascimento
 
 ### Conheça o REPARA!
