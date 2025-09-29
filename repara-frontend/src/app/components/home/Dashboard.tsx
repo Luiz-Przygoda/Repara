@@ -33,16 +33,16 @@ export default function Dashboard() {
     const fetchStats = async () => {
       try {
         const ordensResponse = await api.get("/ordemServico");
-        const ordens = await ordensResponse.data();
+        const ordens = await ordensResponse.data;
         
         const clientesResponse = await api.get("/cliente");
-        const clientes = await clientesResponse.data();
+        const clientes = await clientesResponse.data;
 
         const veiculosResponse = await api.get("/veiculos");
-        const veiculos = await veiculosResponse.data();
+        const veiculos = await veiculosResponse.data;
 
         const servicosResponse = await api.get("/servicos");
-        const servicos = await servicosResponse.data();
+        const servicos = await servicosResponse.data;
 
         const ordensAbertas = ordens.filter((o: { status: string }) => o.status === 'aberta').length;
         const ordensEmAndamento = ordens.filter((o: { status: string }) => o.status === 'em_andamento').length;
