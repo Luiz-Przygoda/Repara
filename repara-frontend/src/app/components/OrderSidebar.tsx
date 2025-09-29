@@ -50,10 +50,10 @@ export default function OrderSidebar({ isOpen, onClose, order }: OrderSidebarPro
   if (!order) return null;
 
   const servicos: Servico[] = order.itens?.map(item => ({
-    nome: item.servico.nome,
-    quantidade: item.quantidade,
-    valor: parseFloat(item.valorUnitario)
-  })) || [];
+  nome: item.servico?.nome || "Serviço sem nome",
+  quantidade: item.quantidade || 0,
+  valor: parseFloat(item.valorUnitario || "0")
+})) || [];
 
   return (
     <>
