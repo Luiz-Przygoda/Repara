@@ -15,7 +15,7 @@ interface Veiculo {
 
 interface Funcionario {
   nome: string;
-  cargo: string;
+  cargo?: string;
 }
 
 interface Servico {
