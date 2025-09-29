@@ -32,11 +32,7 @@ cd repara
 ```
 cd backend
 npm install
-```
-Rodar as migrações e seeds 
-```
-Iniciar servidor:
-npm run dev
+Rodar as migrações e seeds
 ```
 ### 3. Configurar o Frontend
 ```
